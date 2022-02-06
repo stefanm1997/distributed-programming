@@ -1,0 +1,76 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from RegisterService WSDL service -->
+
+  <service name="Register" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://services.soap.mdp.etf.unibl.org"/>
+      <parameter name="wsdlServiceElement" value="RegisterService"/>
+      <parameter name="schemaQualified" value="http://services.soap.mdp.etf.unibl.org,http://model.mdp.etf.unibl.org"/>
+      <parameter name="wsdlServicePort" value="Register"/>
+      <parameter name="className" value="org.unibl.etf.mdp.soap.services.RegisterSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Register"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="changePassword" qname="operNS:changePassword" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" soapAction="" >
+        <parameter qname="pns:token" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="createToken" qname="operNS:createToken" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" returnQName="retNS:createTokenReturn" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:surname" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:JMBG" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:long" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="setMedicalNotActive" qname="operNS:setMedicalNotActive" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getPersonByToken" qname="operNS:getPersonByToken" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" returnQName="retNS:getPersonByTokenReturn" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" returnType="rtns:Person" xmlns:rtns="http://model.mdp.etf.unibl.org" soapAction="" >
+        <parameter qname="pns:token" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteToken" qname="operNS:deleteToken" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" soapAction="" >
+        <parameter qname="pns:token" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getMedicalStaff" qname="operNS:getMedicalStaff" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" returnQName="retNS:getMedicalStaffReturn" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="listAllTokens" qname="operNS:listAllTokens" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" returnQName="retNS:listAllTokensReturn" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="checkOneToken" qname="operNS:checkOneToken" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" returnQName="retNS:checkOneTokenReturn" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:token" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="setMedicalActive" qname="operNS:setMedicalActive" xmlns:operNS="http://services.soap.mdp.etf.unibl.org" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://services.soap.mdp.etf.unibl.org" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="setMedicalNotActive listAllTokens getPersonByToken checkOneToken getMedicalStaff createToken deleteToken setMedicalActive changePassword"/>
+
+      <arrayMapping
+        xmlns:ns="http://services.soap.mdp.etf.unibl.org"
+        qname="ns:ArrayOfArrayOf_xsd_string"
+        type="java:java.lang.String[][]"
+        innerType="cmp-ns:ArrayOf_xsd_string" xmlns:cmp-ns="http://services.soap.mdp.etf.unibl.org"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://model.mdp.etf.unibl.org"
+        qname="ns:Person"
+        type="java:org.unibl.etf.mdp.model.Person"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://services.soap.mdp.etf.unibl.org"
+        qname="ns:ArrayOf_xsd_string"
+        type="java:java.lang.String[]"
+        innerType="cmp-ns:string" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

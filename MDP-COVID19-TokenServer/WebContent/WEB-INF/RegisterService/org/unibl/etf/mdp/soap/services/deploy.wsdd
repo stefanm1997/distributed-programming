@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from RegisterService WSDL service -->
+
+  <service name="Register" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://services.soap.mdp.etf.unibl.org"/>
+      <parameter name="wsdlServiceElement" value="RegisterService"/>
+      <parameter name="schemaQualified" value="http://services.soap.mdp.etf.unibl.org,http://model.mdp.etf.unibl.org"/>
+      <parameter name="wsdlServicePort" value="Register"/>
+      <parameter name="className" value="org.unibl.etf.mdp.soap.services.Register"/>
+      <parameter name="wsdlPortType" value="Register"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" name="changePassword" qname="operNS:changePassword" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:token" type="tns:int"/>
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="createToken" qname="operNS:createToken" returnQName="retNS:createTokenReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:surname" type="tns:string"/>
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:JMBG" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" name="setMedicalNotActive" qname="operNS:setMedicalNotActive" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" xmlns:rtns="http://model.mdp.etf.unibl.org" name="getPersonByToken" qname="operNS:getPersonByToken" returnQName="retNS:getPersonByTokenReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:token" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" name="deleteToken" qname="operNS:deleteToken" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:token" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getMedicalStaff" qname="operNS:getMedicalStaff" returnQName="retNS:getMedicalStaffReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listAllTokens" qname="operNS:listAllTokens" returnQName="retNS:listAllTokensReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" xmlns:retNS="http://services.soap.mdp.etf.unibl.org" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="checkOneToken" qname="operNS:checkOneToken" returnQName="retNS:checkOneTokenReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:token" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://services.soap.mdp.etf.unibl.org" name="setMedicalActive" qname="operNS:setMedicalActive" soapAction="">
+        <parameter xmlns:pns="http://services.soap.mdp.etf.unibl.org" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <parameter name="allowedMethods" value="setMedicalNotActive listAllTokens getPersonByToken checkOneToken getMedicalStaff createToken deleteToken setMedicalActive changePassword"/>
+
+      <arrayMapping xmlns:ns="http://services.soap.mdp.etf.unibl.org" xmlns:cmp-ns="http://services.soap.mdp.etf.unibl.org" qname="ns:ArrayOfArrayOf_xsd_string" type="java:java.lang.String[][]" innerType="cmp-ns:ArrayOf_xsd_string" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.mdp.etf.unibl.org" qname="ns:Person" type="java:org.unibl.etf.mdp.model.Person" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://services.soap.mdp.etf.unibl.org" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
+  </service>
+</deployment>

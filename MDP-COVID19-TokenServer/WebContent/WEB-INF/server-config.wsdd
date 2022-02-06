@@ -1,0 +1,91 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+ <ns1:globalConfiguration>
+  <ns1:parameter name="sendMultiRefs" value="true"/>
+  <ns1:parameter name="disablePrettyXML" value="true"/>
+  <ns1:parameter name="adminPassword" value="admin"/>
+  <ns1:parameter name="attachments.Directory" value="C:\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\MDP-COVID19-TokenServer\WEB-INF\attachments"/>
+  <ns1:parameter name="dotNetSoapEncFix" value="true"/>
+  <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <ns1:parameter name="sendXMLDeclaration" value="true"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:requestFlow>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="session"/>
+   </ns1:handler>
+   <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+    <ns1:parameter name="scope" value="request"/>
+    <ns1:parameter name="extension" value=".jwr"/>
+   </ns1:handler>
+  </ns1:requestFlow>
+ </ns1:globalConfiguration>
+ <ns1:handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <ns1:handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <ns1:handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <ns1:service name="AdminService" provider="java:MSG">
+  <ns1:parameter name="allowedMethods" value="AdminService"/>
+  <ns1:parameter name="enableRemoteAdmin" value="false"/>
+  <ns1:parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+ </ns1:service>
+ <ns1:service name="Version" provider="java:RPC">
+  <ns1:parameter name="allowedMethods" value="getVersion"/>
+  <ns1:parameter name="className" value="org.apache.axis.Version"/>
+ </ns1:service>
+ <ns1:service name="Register" provider="java:RPC" style="wrapped" use="literal">
+  <ns2:operation name="changePassword" qname="ns1:changePassword" soapAction="" xmlns:ns1="http://services.soap.mdp.etf.unibl.org" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns2:parameter qname="ns1:token" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns2:parameter qname="ns1:password" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns2:operation>
+  <ns1:operation name="createToken" qname="ns2:createToken" returnQName="ns2:createTokenReturn" returnType="xsd:int" soapAction="" xmlns:ns2="http://services.soap.mdp.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns2:name" type="xsd:string"/>
+   <ns1:parameter qname="ns2:surname" type="xsd:string"/>
+   <ns1:parameter qname="ns2:JMBG" type="xsd:long"/>
+  </ns1:operation>
+  <ns1:operation name="setMedicalNotActive" qname="ns3:setMedicalNotActive" soapAction="" xmlns:ns3="http://services.soap.mdp.etf.unibl.org">
+   <ns1:parameter qname="ns3:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="getPersonByToken" qname="ns4:getPersonByToken" returnQName="ns4:getPersonByTokenReturn" returnType="ns5:Person" soapAction="" xmlns:ns4="http://services.soap.mdp.etf.unibl.org" xmlns:ns5="http://model.mdp.etf.unibl.org">
+   <ns1:parameter qname="ns4:token" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="deleteToken" qname="ns6:deleteToken" soapAction="" xmlns:ns6="http://services.soap.mdp.etf.unibl.org">
+   <ns1:parameter qname="ns6:token" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:operation name="getMedicalStaff" qname="ns7:getMedicalStaff" returnQName="ns7:getMedicalStaffReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://services.soap.mdp.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="listAllTokens" qname="ns8:listAllTokens" returnQName="ns8:listAllTokensReturn" returnType="xsd:string" soapAction="" xmlns:ns8="http://services.soap.mdp.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="checkOneToken" qname="ns9:checkOneToken" returnQName="ns9:checkOneTokenReturn" returnType="xsd:boolean" soapAction="" xmlns:ns9="http://services.soap.mdp.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns9:token" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="setMedicalActive" qname="ns10:setMedicalActive" soapAction="" xmlns:ns10="http://services.soap.mdp.etf.unibl.org">
+   <ns1:parameter qname="ns10:id" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="setMedicalNotActive listAllTokens getPersonByToken checkOneToken getMedicalStaff createToken deleteToken setMedicalActive changePassword"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="Register"/>
+  <ns1:parameter name="className" value="org.unibl.etf.mdp.soap.services.Register"/>
+  <ns1:parameter name="wsdlServicePort" value="Register"/>
+  <ns1:parameter name="schemaQualified" value="http://services.soap.mdp.etf.unibl.org,http://model.mdp.etf.unibl.org"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://services.soap.mdp.etf.unibl.org"/>
+  <ns1:parameter name="wsdlServiceElement" value="RegisterService"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns11:Person" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:org.unibl.etf.mdp.model.Person" xmlns:ns11="http://model.mdp.etf.unibl.org"/>
+  <ns1:arrayMapping innerType="ns12:ArrayOf_xsd_string" languageSpecificType="java:java.lang.String[][]" qname="ns12:ArrayOfArrayOf_xsd_string" xmlns:ns12="http://services.soap.mdp.etf.unibl.org"/>
+  <ns1:arrayMapping innerType="xsd:string" languageSpecificType="java:java.lang.String[]" qname="ns13:ArrayOf_xsd_string" xmlns:ns13="http://services.soap.mdp.etf.unibl.org" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+ </ns1:service>
+ <ns1:transport name="http">
+  <ns1:requestFlow>
+   <ns1:handler type="URLMapper"/>
+   <ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </ns1:requestFlow>
+  <ns1:parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <ns1:parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <ns1:parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <ns1:parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </ns1:transport>
+ <ns1:transport name="local">
+  <ns1:responseFlow>
+   <ns1:handler type="LocalResponder"/>
+  </ns1:responseFlow>
+ </ns1:transport>
+</ns1:deployment>

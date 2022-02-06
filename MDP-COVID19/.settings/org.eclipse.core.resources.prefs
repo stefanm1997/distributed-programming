@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//src/org/unibl/etf/mdp/model/Person.java=UTF-8
+encoding//src/org/unibl/etf/mdp/soap/services/Register.java=UTF-8
+encoding//src/org/unibl/etf/mdp/soap/services/RegisterService.java=UTF-8
+encoding//src/org/unibl/etf/mdp/soap/services/RegisterServiceLocator.java=UTF-8
+encoding//src/org/unibl/etf/mdp/soap/services/RegisterSoapBindingStub.java=UTF-8

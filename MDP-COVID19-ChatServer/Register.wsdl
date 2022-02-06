@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://services.soap.mdp.etf.unibl.org" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://services.soap.mdp.etf.unibl.org" xmlns:intf="http://services.soap.mdp.etf.unibl.org" xmlns:tns1="http://model.mdp.etf.unibl.org" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://services.soap.mdp.etf.unibl.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.mdp.etf.unibl.org"/>
+   <element name="changePassword">
+    <complexType>
+     <sequence>
+      <element name="token" type="xsd:int"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changePasswordResponse">
+    <complexType/>
+   </element>
+   <element name="createToken">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="surname" type="xsd:string"/>
+      <element name="JMBG" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="createTokenResponse">
+    <complexType>
+     <sequence>
+      <element name="createTokenReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setMedicalNotActive">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setMedicalNotActiveResponse">
+    <complexType/>
+   </element>
+   <element name="getPersonByToken">
+    <complexType>
+     <sequence>
+      <element name="token" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPersonByTokenResponse">
+    <complexType>
+     <sequence>
+      <element name="getPersonByTokenReturn" type="tns1:Person"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="impl:ArrayOf_xsd_string"/>
+    </sequence>
+   </complexType>
+   <element name="deleteToken">
+    <complexType>
+     <sequence>
+      <element name="token" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteTokenResponse">
+    <complexType/>
+   </element>
+   <element name="getMedicalStaff">
+    <complexType/>
+   </element>
+   <element name="getMedicalStaffResponse">
+    <complexType>
+     <sequence>
+      <element name="getMedicalStaffReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listAllTokens">
+    <complexType/>
+   </element>
+   <element name="listAllTokensResponse">
+    <complexType>
+     <sequence>
+      <element name="listAllTokensReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="checkOneToken">
+    <complexType>
+     <sequence>
+      <element name="token" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="checkOneTokenResponse">
+    <complexType>
+     <sequence>
+      <element name="checkOneTokenReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setMedicalActive">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setMedicalActiveResponse">
+    <complexType/>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.mdp.etf.unibl.org" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://services.soap.mdp.etf.unibl.org"/>
+   <complexType name="Person">
+    <sequence>
+     <element name="JMBG" type="xsd:long"/>
+     <element name="blocked" type="xsd:boolean"/>
+     <element name="map" nillable="true" type="impl:ArrayOfArrayOf_xsd_string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+     <element name="surname" nillable="true" type="xsd:string"/>
+     <element name="token" type="xsd:int"/>
+     <element name="vrijeme" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getPersonByTokenRequest">
+
+      <wsdl:part element="impl:getPersonByToken" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listAllTokensRequest">
+
+      <wsdl:part element="impl:listAllTokens" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="checkOneTokenRequest">
+
+      <wsdl:part element="impl:checkOneToken" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setMedicalNotActiveResponse">
+
+      <wsdl:part element="impl:setMedicalNotActiveResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonByTokenResponse">
+
+      <wsdl:part element="impl:getPersonByTokenResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMedicalStaffRequest">
+
+      <wsdl:part element="impl:getMedicalStaff" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteTokenRequest">
+
+      <wsdl:part element="impl:deleteToken" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setMedicalActiveRequest">
+
+      <wsdl:part element="impl:setMedicalActive" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setMedicalNotActiveRequest">
+
+      <wsdl:part element="impl:setMedicalNotActive" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="checkOneTokenResponse">
+
+      <wsdl:part element="impl:checkOneTokenResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="setMedicalActiveResponse">
+
+      <wsdl:part element="impl:setMedicalActiveResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createTokenResponse">
+
+      <wsdl:part element="impl:createTokenResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="changePasswordResponse">
+
+      <wsdl:part element="impl:changePasswordResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteTokenResponse">
+
+      <wsdl:part element="impl:deleteTokenResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listAllTokensResponse">
+
+      <wsdl:part element="impl:listAllTokensResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getMedicalStaffResponse">
+
+      <wsdl:part element="impl:getMedicalStaffResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createTokenRequest">
+
+      <wsdl:part element="impl:createToken" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="changePasswordRequest">
+
+      <wsdl:part element="impl:changePassword" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Register">
+
+      <wsdl:operation name="changePassword">
+
+         <wsdl:input message="impl:changePasswordRequest" name="changePasswordRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:changePasswordResponse" name="changePasswordResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createToken">
+
+         <wsdl:input message="impl:createTokenRequest" name="createTokenRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createTokenResponse" name="createTokenResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setMedicalNotActive">
+
+         <wsdl:input message="impl:setMedicalNotActiveRequest" name="setMedicalNotActiveRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setMedicalNotActiveResponse" name="setMedicalNotActiveResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonByToken">
+
+         <wsdl:input message="impl:getPersonByTokenRequest" name="getPersonByTokenRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getPersonByTokenResponse" name="getPersonByTokenResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteToken">
+
+         <wsdl:input message="impl:deleteTokenRequest" name="deleteTokenRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteTokenResponse" name="deleteTokenResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMedicalStaff">
+
+         <wsdl:input message="impl:getMedicalStaffRequest" name="getMedicalStaffRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getMedicalStaffResponse" name="getMedicalStaffResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listAllTokens">
+
+         <wsdl:input message="impl:listAllTokensRequest" name="listAllTokensRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listAllTokensResponse" name="listAllTokensResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="checkOneToken">
+
+         <wsdl:input message="impl:checkOneTokenRequest" name="checkOneTokenRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:checkOneTokenResponse" name="checkOneTokenResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setMedicalActive">
+
+         <wsdl:input message="impl:setMedicalActiveRequest" name="setMedicalActiveRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:setMedicalActiveResponse" name="setMedicalActiveResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="RegisterSoapBinding" type="impl:Register">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="changePassword">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changePasswordRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changePasswordResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="createToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createTokenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createTokenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setMedicalNotActive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setMedicalNotActiveRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setMedicalNotActiveResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonByToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPersonByTokenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPersonByTokenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteTokenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteTokenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getMedicalStaff">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getMedicalStaffRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getMedicalStaffResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listAllTokens">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listAllTokensRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listAllTokensResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="checkOneToken">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="checkOneTokenRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="checkOneTokenResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setMedicalActive">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setMedicalActiveRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setMedicalActiveResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="RegisterService">
+
+      <wsdl:port binding="impl:RegisterSoapBinding" name="Register">
+
+         <wsdlsoap:address location="http://localhost:8080/MDP-COVID19-TokenServer/services/Register"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
